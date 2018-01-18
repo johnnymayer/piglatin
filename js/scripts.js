@@ -1,34 +1,34 @@
-var pigLatin = function(phrase){
-  if(phrase[0] === "a" || phrase[0] === "e" || phrase[0] === "i" || phrase[0] === "o" || phrase[0] === "u"){
+function pigLatin(phrase){
+  if(!isNaN(phrase.charAt(0))){
+    return false;
+  }
+  else if(phrase.charAt(0) === "a" || phrase.charAt(0) === "e" || phrase.charAt(0) === "i" || phrase.charAt(0) === "o" || phrase.charAt(0) === "u"){
     phrase = phrase + "way";
     return phrase;
-  } else if (phrase[0] != "a" || phrase[0] != "e" || phrase[0] != "i" || phrase[0] != "o" || phrase[0] != "u"){
+  } else if (phrase.charAt(0) != "a" || phrase.charAt(0) != "e"|| phrase.charAt(0) != "i"|| phrase.charAt(0) != "o" || phrase.charAt(0) != "u"){
     phrase = phrase.replace(/(\w+?)([aeiou]\w+)/i, '$2$1') + "ay";
-
-    // phrase = phrase.slice(1) + phrase[0] + "ay";
     return phrase;
-
-  } else if (isNaN(phrase)) {
-
-    return false;
+  } else if (phrase[0] === "q" && phrase[1] === "u"){
+      phrase = phrase.charAt(0,1) + "quay";
+      return phrase;
   }
 };
 
 $(document).ready(function() {
   $("form#translated-form").submit(function(event){
     event.preventDefault();
-    var phrase = $("input#phrase").val();
-    var result = pigLatin(phrase);
+    var newArray = [];
+    var phrase = $("input#phrase").val().split(/\b\W\S/i);
+    for (var i = 0; i < phrase.length; i ++) {
+      newArray.push(pigLatin(phrase[i]));
+    }
 
     $(".phrase").text(phrase);
 
     if(!result){
       $(".pig-latin").text("This can not be translated to pig latin");
     } else {
-      $(".pig-latin").text(result);
+      $(".pig-latin").text(newArray);
     }
   });
 });
-
-
-// (phrase[0] === 0 || phrase[0] === 1 || phrase[0] === 2 || phrase[0] === 3 || phrase[0] === 4 || phrase[0] === 5 || phrase[0] === 6 || phrase[0] === 7 || phrase[0] === 8 || ){
