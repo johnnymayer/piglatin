@@ -10,7 +10,7 @@ function pigLatin(phrase) {
     }
     }
     else {
-      return phrase;
+      return;
     }
   }
 
